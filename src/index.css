@@ -2,6 +2,12 @@
 @tailwind components;
 @tailwind utilities;
 
+@import "../node_modules/bootstrap-icons/font/bootstrap-icons.css";
+
+:root{
+  --rounded:5px;
+}
+
 body{
   display: flex;
   justify-content: center;
@@ -10,24 +16,65 @@ body{
   background-color: #1c4dd6;
 }
 
-.FoundWordsList, .LettersMenu, .FormingWordRecipient{
-  width: 360px;
-}
-
-.FoundWordsList{
-  max-height: 350px;
+.foundWordsRecipient{
+  width: 250px;
+  min-height: 320px;
+  max-height: 320px;
   overflow-y:scroll;
+  border-radius: var(--rounded);
+  border: 5px solid #6f92eb;
 }
 
-@media screen and (max-width:754px){
+.foundWordsRecipient::-webkit-scrollbar {
+  display: none;
+}
+
+.foundWordsRecipient {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
+
+.foundWord{
+  max-width: 100px ;
+  border-radius: var(--rounded);
+}
+
+.matchLetter{
+  width: 64px;
+  height: 64px;
+  border-radius: 60%;
+  border: 2px solid white;
+}
+
+.formingWordRecipient{
+  width: 300px;
+  height: 60px;
+  border-radius: var(--rounded);
+}
+
+.letterDisabled, .btnDisabled{
+  opacity: 55%;
+}
+
+
+
+@media screen and (max-width:599px) {
   .gameplaySection{
     flex-direction: column;
     align-items: center;
   }
 
-  .FoundWordsList__Section{
-    margin-right: 0px;
-    margin-bottom: 15px;
+  .percentText{
+    text-align: center;
   }
 
+  .foundWordsSection{
+    margin-right: 0px !important;
+    margin-bottom: 30px;
+  }
+
+  .matchLettersRecipient{
+    margin: 15px 0px;
+  }
+  
 }
