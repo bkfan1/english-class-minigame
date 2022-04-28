@@ -1,91 +1,103 @@
-import { useEffect, useState } from "react";
-import { gameLetters } from "../utils/letters";
-import { gameWords } from "../utils/words";
+import { useContext, useState } from "react";
+import { GameContext } from "../context/GameContext";
 import FormingWordRecipient from "./FormingWordRecipient";
-import FoundWordsList from "./FoundWordsList";
-import LettersMenu from "./LettersMenu";
+import FoundWordsRecipient from "./FoundWordsRecipient";
+import MatchLetterButton from "./MatchLetterButton";
+import MatchLettersRecipient from "./MatchLettersRecipient";
 import SubmitButton from "./SubmitButton";
 
 export default function GameApp() {
-  const [letters, setLetters] = useState([]);
-  const [words, setWords] = useState([]);
-  const [selectedLetters, setSelectedLetters] = useState([]);
-  const [foundWords, setFoundWords] = useState([]);
-  const [percentCompleted, setPercentCompleted] = useState(0);
-  const [error, setError] = useState("");
-
-  useEffect(() => {
-    const randInt = Math.floor(Math.random() * 5);
-    setLetters(gameLetters[randInt]);
-
-    const wordsInUpperCase = [];
-    gameWords[randInt].forEach((word) =>
-      wordsInUpperCase.push(word.toUpperCase())
-    );
-
-    setWords(wordsInUpperCase);
-  }, []);
-
-  useEffect(() => {
-    const hideAndResetError = () => {
-      setTimeout(() => {
-        setError("");
-      }, 5000);
-    };
-    hideAndResetError();
-  }, [error]);
+  const {
+    setMatch,
+    error,
+    setError,
+    clueCounter,
+    clueWord,
+    handleClickClueBtn,
+    percentCompleted,
+  } = useContext(GameContext);
 
   return (
     <>
-      <main className="flex flex-col justify-between items-center w-full h-full ">
-        <header className="animate__backInDown flex flex-col items-center mb-3">
-          <h1 className="text-3xl mb-2">🇬🇧</h1>
-          <h1 className="text-xl text-white font-bold">
-            English Class Minigame
-          </h1>
-          <h2 className="text-sm mt-2 text-white">
-            Created by{" "}
-            <a href="https://www.github.com/bkfan1" className="font-bold">
-              @bkfan1
+      <header className="flex flex-col justify-center items-center mb-6">
+        <span className="animate__bounceIn text-3xl">🇬🇧</span>
+
+        <h1 className="animate__bounceIn text-2xl text-white font-bold text-center ">
+          English Class Minigame
+        </h1>
+        <h2 className="animate__bounceIn text-base text-white text-center ">
+          Created by Jackson Paredes Ferranti{" "}
+        </h2>
+        <ul className="flex text-white">
+          <li>
+            <a title="Github profile" href="https://www.github.com/bkfan1">
+              <i className="bi bi-github mr-3"></i>
             </a>
-          </h2>
-        </header>
+          </li>
+          <li>
+            <a title="Send email" href="mailto:jacksonpf177@gmail.com">
+              <i className="bi bi-envelope-fill"></i>
+            </a>
+          </li>
+        </ul>
+      </header>
+      {
+        <p className={`text-white mb-2 font-bold ${percentCompleted === 100 ? "text-center" : ""}`}>
+          {percentCompleted}% completed
+        </p>
+      }
 
-        <p className={`font-bold ${percentCompleted === 100 ? "text-emerald-400" : "text-white" }`}>{percentCompleted}% completado</p>
-        {percentCompleted === 100 ? <button className="my-2 bg-green-500 p-2 rounded text-white hover:bg-green-600 ease-in-out duration-200">Jugar de nuevo</button> : ""}
+      <main className="flex flex-col">
+        {percentCompleted === 100 ? (
+          <>
+            <h1 className="text-white text-center text-xl mb-3 font-bold">
+              Congrats!
+            </h1>
+            <button
+              className="bg-green-500 p-2 rounded text-white"
+              onClick={setMatch}
+            >
+              Play again
+            </button>
+          </>
+        ) : (
+          <>
+            <section className="gameplaySection flex">
+              <section className="foundWordsSection mr-6">
+                <FoundWordsRecipient />
+              </section>
 
-        <section className="gameplaySection flex py-4">
-          <section className="FoundWordsList__Section flex flex-col mr-6">
-            <FoundWordsList foundWords={foundWords} />
-          </section>
-          {percentCompleted < 100 ? (
-            <>
-            <section className="lettersSection flex flex-col items-center justify-between w-full h-90">
-            <FormingWordRecipient selectedLetters={selectedLetters} />
+              <section className="flex flex-col items-center justify-between">
+                <FormingWordRecipient />
 
-            {error !== "" ? <p className="font-bold text-red-800 my-2">{error}</p> : "" }
-    
-            <SubmitButton
-              words={words}
-              selectedLetters={selectedLetters}
-              setSelectedLetters={setSelectedLetters}
-              foundWords={foundWords}
-              setFoundWords={setFoundWords}
-              percentCompleted={percentCompleted}
-              setPercentCompleted={setPercentCompleted}
-              error={error}
-              setError={setError}
-            />
+                <MatchLettersRecipient />
 
-            <LettersMenu
-              letters={letters}
-              selectedLetters={selectedLetters}
-              setSelectedLetters={setSelectedLetters}
-            />
-          </section>
-            </>
-          ) : ""}
-        </section>
+                <SubmitButton />
+              </section>
+            </section>
+
+            <menu className="animate__bounceIn mt-3">
+              <p className="text-white mb-2">
+                Remaining clues{" "}
+                <span className="font-bold">{clueCounter}/3</span>
+              </p>
+
+              <div className="flex items-center">
+                <button
+                  className="p-2 bg-emerald-500 rounded text-white"
+                  onClick={handleClickClueBtn}
+                >
+                  <i className="bi bi-search" /> Get clue
+                </button>
+                {clueWord ? (
+                  <p className="bg-white p-2 rounded ml-3">{clueWord}</p>
+                ) : (
+                  ""
+                )}
+              </div>
+            </menu>
+          </>
+        )}
       </main>
     </>
   );
