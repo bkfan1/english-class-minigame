@@ -12,4 +12,5 @@ The player is given six jumbled letters, and must arrange the letters in the jum
 - Profanity.
 - Words with less than three letters.
 
-## Live Demo: Coming soon
+## Live Demo:
+https://english-class-minigame.vercel.app/

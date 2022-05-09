@@ -5,6 +5,7 @@ import FoundWordsRecipient from "./FoundWordsRecipient";
 import MatchLetterButton from "./MatchLetterButton";
 import MatchLettersRecipient from "./MatchLettersRecipient";
 import SubmitButton from "./SubmitButton";
+import Timer from "./Timer";
 
 export default function GameApp() {
   const {
@@ -41,6 +42,7 @@ export default function GameApp() {
           </li>
         </ul>
       </header>
+      <Timer />
       {
         <p className={`text-white mb-2 font-bold ${percentCompleted === 100 ? "text-center" : ""}`}>
           {percentCompleted}% completed
