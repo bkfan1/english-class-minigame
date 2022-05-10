@@ -1,105 +1,69 @@
-import { useContext, useState } from "react";
+import { useContext } from "react";
 import { GameContext } from "../context/GameContext";
-import FormingWordRecipient from "./FormingWordRecipient";
-import FoundWordsRecipient from "./FoundWordsRecipient";
-import MatchLetterButton from "./MatchLetterButton";
+import FormingWordLettersRecipient from "./FormingWordLettersRecipient";
+import GuessedWordsRecipient from "./GuessedWordsRecipient";
 import MatchLettersRecipient from "./MatchLettersRecipient";
+import StatsChart from "./StatsChart";
 import SubmitButton from "./SubmitButton";
-import Timer from "./Timer";
 
 export default function GameApp() {
-  const {
-    setMatch,
-    error,
-    setError,
-    clueCounter,
-    clueWord,
-    handleClickClueBtn,
-    percentCompleted,
-  } = useContext(GameContext);
-
+  const { setMatch, percentCompleted,clueWord, handleClickClueBtn } = useContext(GameContext);
   return (
     <>
-      <header className="flex flex-col justify-center items-center mb-6">
-        <span className="animate__bounceIn text-3xl">🇬🇧</span>
-
-        <h1 className="animate__bounceIn text-2xl text-white font-bold text-center ">
-          English Class Minigame
-        </h1>
-        <h2 className="animate__bounceIn text-base text-white text-center ">
-          Created by Jackson Paredes Ferranti{" "}
-        </h2>
-        <ul className="flex text-white">
-          <li>
-            <a title="Github profile" href="https://www.github.com/bkfan1">
-              <i className="bi bi-github mr-3"></i>
-            </a>
-          </li>
-          <li>
-            <a title="Send email" href="mailto:jacksonpf177@gmail.com">
-              <i className="bi bi-envelope-fill"></i>
-            </a>
-          </li>
-        </ul>
-      </header>
-      <Timer />
-      {
-        <p className={`text-white mb-2 font-bold ${percentCompleted === 100 ? "text-center" : ""}`}>
-          {percentCompleted}% completed
-        </p>
-      }
-
       <main className="flex flex-col">
+        <header className="animate__bounceIn flex flex-col items-center w-full pb-6 text-white">
+          <h1 className="text-2xl">🇬🇧</h1>
+          <h2 className="text-2xl font-bold">English Class Minigame</h2>
+          <h3 className="text-base">Created by Jackson Paredes Ferranti</h3>
+          <ul className="flex">
+            <li className="mr-2">
+              <a href="https://www.github.com/bkfan1" title="Github profile">
+                <i className="bi bi-github"></i>
+              </a>
+            </li>
+            <li>
+              <a href="mailto:jacksonpf177@gmail.com" title="Send email">
+                <i className="bi bi-envelope-fill"></i>
+              </a>
+            </li>
+          </ul>
+        </header>
+
         {percentCompleted === 100 ? (
           <>
-            <h1 className="text-white text-center text-xl mb-3 font-bold">
-              Congrats!
-            </h1>
-            <button
-              className="bg-green-500 p-2 rounded text-white"
-              onClick={setMatch}
-            >
-              Play again
-            </button>
+          <menu className="mb-3">
+            <button onClick={setMatch} className="p-2 bg-green-500 text-white rounded"><i className="bi bi-plus"/>Play new match</button>
+          </menu>
+          <StatsChart/>
           </>
         ) : (
           <>
-            <section className="gameplaySection flex">
-              <section className="foundWordsSection mr-6">
-                <FoundWordsRecipient />
-              </section>
+          <section className="statsSection flex flex-col">
+          <p className="text-white">{percentCompleted}% completed</p>
+          <menu className="flex items-center mt-2 ">
+          <button onClick={handleClickClueBtn} className="w-28 p-2 text-white bg-green-500  rounded"><i className="bi bi-search"/> Get clue</button>
+          {clueWord ? <p className="animate__bounceIn ml-3 p-2 rounded bg-white text-center"><i className="bi bi-chat-text"/> {clueWord}</p> : ""}
 
-              <section className="flex flex-col items-center justify-between">
-                <FormingWordRecipient />
+          </menu>
 
-                <MatchLettersRecipient />
+        </section>
 
-                <SubmitButton />
-              </section>
-            </section>
+        <section className="gameplaySection flex justify-between">
+          <section className="sectionA flex flex-col mr-6">
+            <GuessedWordsRecipient />
+          </section>
 
-            <menu className="animate__bounceIn mt-3">
-              <p className="text-white mb-2">
-                Remaining clues{" "}
-                <span className="font-bold">{clueCounter}/3</span>
-              </p>
+          <section className="sectionB flex flex-col justify-around">
+            <FormingWordLettersRecipient />
+            <MatchLettersRecipient />
+              <SubmitButton />
 
-              <div className="flex items-center">
-                <button
-                  className="p-2 bg-emerald-500 rounded text-white"
-                  onClick={handleClickClueBtn}
-                >
-                  <i className="bi bi-search" /> Get clue
-                </button>
-                {clueWord ? (
-                  <p className="bg-white p-2 rounded ml-3">{clueWord}</p>
-                ) : (
-                  ""
-                )}
-              </div>
-            </menu>
+          </section>
+        </section>
           </>
         )}
+
+        
       </main>
     </>
   );

@@ -1,19 +1,11 @@
-import { useContext } from "react";
-import { GameContext } from "../context/GameContext";
+import { useContext } from "react"
+import { GameContext } from "../context/GameContext"
 
-export default function SubmitButton() {
-  const { handleSubmitFormingWord, error } = useContext(GameContext);
-  return (
-    <>
-      <button
-        disabled={error ? true : false}
-        onClick={handleSubmitFormingWord}
-        className={`animate__bounceIn transition ease-in-out mt-3 p-3 ${
-          error ? "btnDisabled" : ""
-        } bg-white rounded`}
-      >
-        Submit
-      </button>
-    </>
-  );
+export default function SubmitButton(){
+    const {handleClickMergeLetters, error} = useContext(GameContext);
+    return(
+        <>
+        <button onClick={handleClickMergeLetters} disabled={error ? true : false} className={`animate__bounceIn w-full p-2 mt-3 bg-white rounded ${error ? "btnDisabled" : ""}`}>Submit</button>
+        </>
+    )
 }

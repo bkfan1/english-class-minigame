@@ -1,21 +1,36 @@
-import { useContext } from "react";
+import { useState, useEffect, useContext } from "react";
 import { GameContext } from "../context/GameContext";
 
-export default function MatchLetterButton({ value }) {
+export default function MatchLetterButton({ letter }) {
   const { selectedLetters, handleClickLetterBtn, error } =
     useContext(GameContext);
+  const [isSelected, setIsSelected] = useState(false);
+
+  useEffect(() => {
+    if (selectedLetters.includes(letter)) {
+      setIsSelected(true);
+    } else {
+      setIsSelected(false);
+    }
+  }, [selectedLetters]);
 
   return (
     <>
       <button
+        value={letter.id}
+        onClick={(e) => {
+          handleClickLetterBtn(e);
+        }}
         disabled={error ? true : false}
-        onClick={(e) => handleClickLetterBtn(e)}
-        value={value}
-        className={`matchLetter  animate__bounceIn transition ease-in-out ${
-          selectedLetters.includes(value) ? "bg-blue-800" : "bg-blue-500"
-        } ${error ? "letterDisabled" : ""}  text-white p-3`}
+        className={`matchLetter animate__bounceIn transition ease-in-out text-white
+
+        ${isSelected ? "bg-blue-800" : "bg-blue-500"}
+
+        ${error ? "letterDisabled" : ""}
+        
+        `}
       >
-        {value}
+        {letter.value}
       </button>
     </>
   );
