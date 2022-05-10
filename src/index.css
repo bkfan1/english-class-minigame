@@ -16,7 +16,12 @@ body{
   background-color: #1c4dd6;
 }
 
-.foundWordsRecipient{
+
+.formingWordLettersRecipient{
+  height: 55px;
+}
+
+.guessedWordsRecipient{
   width: 250px;
   min-height: 320px;
   max-height: 320px;
@@ -25,16 +30,8 @@ body{
   border: 5px solid #6f92eb;
 }
 
-.foundWordsRecipient::-webkit-scrollbar {
-  display: none;
-}
 
-.foundWordsRecipient {
-  -ms-overflow-style: none;  /* IE and Edge */
-  scrollbar-width: none;  /* Firefox */
-}
-
-.foundWord{
+.guessedWord{
   max-width: 100px ;
   border-radius: var(--rounded);
 }
@@ -46,7 +43,7 @@ body{
   border: 2px solid white;
 }
 
-.formingWordRecipient{
+.guessedWordRecipient{
   width: 300px;
   height: 60px;
   border-radius: var(--rounded);
@@ -56,25 +53,27 @@ body{
   opacity: 55%;
 }
 
-
-
-@media screen and (max-width:599px) {
+@media screen and (max-width:515px) {
   .gameplaySection{
     flex-direction: column;
     align-items: center;
+    justify-content: center;
   }
 
-  .percentText{
-    text-align: center;
+  .sectionA{
+    margin-right: 0px;
   }
 
-  .foundWordsSection{
-    margin-right: 0px !important;
-    margin-bottom: 30px;
+  .sectionB{
+    margin-top: 10px;
   }
 
   .matchLettersRecipient{
-    margin: 15px 0px;
+    margin:10px 0px;
+  }
+
+  .statsSection{
+    align-items: center;
   }
   
 }
