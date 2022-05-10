@@ -1,17 +1,15 @@
-import GameApp from './components/GameApp';
-import './index.css';
-import 'animate.css';
-import { GameProvider } from './context/GameContext';
+import GameApp from "./components/GameApp";
+import "./index.css";
+import "animate.css";
+import { GameProvider } from "./context/GameContext";
 
 function App() {
   return (
-    <div className="App">
-      <GameProvider>
-      <GameApp />
-
-      </GameProvider>
-
-    </div>
+    <GameProvider>
+      <div className="App">
+        <GameApp />
+      </div>
+    </GameProvider>
   );
 }
 
