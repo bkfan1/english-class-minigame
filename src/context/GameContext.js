@@ -119,8 +119,10 @@ export const GameProvider = ({ children }) => {
       value={{
         setMatch,
         matchLetters,
+        matchWords,
         selectedLetters,
         guessedWords,
+        clueCounter,
         clueWord,
         guessingAttempts,
         percentCompleted,
