@@ -14,3 +14,7 @@ The player is given six jumbled letters, and must arrange the letters in the jum
 
 ## Live Demo:
 https://english-class-minigame.vercel.app/
+
+## Gallery:
+https://imgur.com/a/bk5TeWA
+
