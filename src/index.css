@@ -25,7 +25,7 @@ body{
   width: 250px;
   min-height: 320px;
   max-height: 320px;
-  overflow-y:scroll;
+  overflow-y: scroll;
   border-radius: var(--rounded);
   border: 5px solid #6f92eb;
 }
